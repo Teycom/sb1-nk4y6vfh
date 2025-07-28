@@ -1,0 +1,16 @@
+{
+  "routes": [
+    {
+      "src": "/lp-view",
+      "dest": "/index.html"
+    },
+    {
+      "src": "/lp-wpp",
+      "dest": "/index.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
+}
