@@ -10,7 +10,6 @@
     }
   ],
   "routes": [
-    // serve o index.html para toda rota (SPA)
     { "src": "/lp-view", "dest": "/index.html" },
     { "src": "/lp-wpp",  "dest": "/index.html" },
     { "src": "/(.*)",    "dest": "/index.html" }
