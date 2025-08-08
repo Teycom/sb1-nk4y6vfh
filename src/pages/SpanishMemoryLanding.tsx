@@ -109,8 +109,11 @@ const SpanishMemoryLanding: React.FC = () => {
 
           {/* Video Player */}
           <div className="mb-12">
-            <div className="max-w-4xl mx-auto aspect-video relative bg-black/10 rounded-xl shadow-2xl border-2 border-purple-200/30">
+            <div className="max-w-4xl mx-auto relative bg-black/10 rounded-xl shadow-2xl border-2 border-purple-200/30 md:aspect-video">
+              {/* Mobile: Vertical aspect ratio, Desktop: Horizontal aspect ratio */}
+              <div className="aspect-[9/16] md:aspect-video">
               <VTurbPlayer videoId="689607c4852ea9821ad57f5d" className="absolute inset-0 rounded-xl overflow-hidden" />
+              </div>
             </div>
           </div>
 

@@ -24,10 +24,10 @@ const VTurbPlayer: React.FC<VTurbPlayerProps> = ({ videoId, className = '' }) =>
   }, [videoId]);
 
   return (
-    <div className={className}>
+    <div className={`w-full h-full ${className}`}>
       <vturb-smartplayer 
         id={`vid-${videoId}`}
-        style={{ display: 'block', margin: '0 auto', width: '100%' }}
+        style={{ display: 'block', margin: '0 auto', width: '100%', height: '100%' }}
       />
     </div>
   );
