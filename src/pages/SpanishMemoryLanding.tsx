@@ -6,10 +6,10 @@ import { Button } from '../components/ui/Button';
 
 const SpanishMemoryLanding: React.FC = () => {
   const [showContent, setShowContent] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(15 * 60); // 15 minutes in seconds
+  const [timeLeft, setTimeLeft] = useState(15 * 60);
 
   useEffect(() => {
-    const SECONDS_TO_DISPLAY = 442; // 7 minutes 22 seconds
+    const SECONDS_TO_DISPLAY = 442;
     let attempts = 0;
     let elsDisplayed = false;
     const alreadyDisplayedKey = `alreadyElsDisplayedSpanish${SECONDS_TO_DISPLAY}`;
@@ -23,13 +23,11 @@ const SpanishMemoryLanding: React.FC = () => {
 
     const startWatchVideoProgress = () => {
       const smartplayer = (window as any).smartplayer;
-
       if (!smartplayer || !(smartplayer.instances && smartplayer.instances.length)) {
         if (attempts >= 10) return;
         attempts += 1;
         return setTimeout(startWatchVideoProgress, 1000);
       }
-
       smartplayer.instances[0].on('timeupdate', () => {
         if (elsDisplayed || smartplayer.instances[0].smartAutoPlay) return;
         if (smartplayer.instances[0].video.currentTime < SECONDS_TO_DISPLAY) return;
@@ -46,7 +44,6 @@ const SpanishMemoryLanding: React.FC = () => {
 
   useEffect(() => {
     if (!showContent) return;
-
     const timer = setInterval(() => {
       setTimeLeft((prevTime) => {
         if (prevTime <= 1) {
@@ -56,7 +53,6 @@ const SpanishMemoryLanding: React.FC = () => {
         return prevTime - 1;
       });
     }, 1000);
-
     return () => clearInterval(timer);
   }, [showContent]);
 
@@ -93,31 +89,30 @@ const SpanishMemoryLanding: React.FC = () => {
 
       <section className="relative overflow-hidden py-12 lg:py-20">
         <div className="absolute inset-0 bg-gradient-to-r from-purple-900/20 to-blue-900/20"></div>
-        <div className="container mx-auto px-6 text-center relative z-10">
-          <h2 className="text-3xl lg:text-5xl font-bold text-white mb-8 leading-tight">
+        <div className="container mx-auto px-4 text-center relative z-10">
+
+          <h2 className="text-white font-bold text-balance text-center px-4 leading-tight text-[clamp(1.5rem,5vw,2.5rem)] mb-6">
             Neurocientífico entrenado por la NASA:<br />
-            "Haz este truco cerebral de 8 segundos"<br />
-            <span className="inline-block mt-2 px-4 py-2 rounded-lg" style={{ background: '#a5db69' }}>
-              <span style={{ color: '#000' }}>Para una memoria más fuerte</span>
-            </span>
+            <span className="block mt-1">"Haz este truco cerebral de 8 segundos"</span>
           </h2>
 
-          <div className="mb-12">
-            <div className="max-w-4xl mx-auto bg-black/10 rounded-xl shadow-2xl border-2 border-purple-200/30">
-              <div className="aspect-[9/16] md:aspect-video relative overflow-hidden rounded-xl">
-                <VTurbPlayer videoId="689607c4852ea9821ad57f5d" className="w-full h-full" />
-              </div>
+          <div className="inline-block bg-[#a5db69] rounded-lg px-4 py-2 mb-8">
+            <span className="text-black font-semibold text-[clamp(1rem,3vw,1.25rem)]">Para una memoria más fuerte</span>
+          </div>
+
+          <div className="max-w-4xl mx-auto bg-black/10 rounded-xl shadow-2xl border-2 border-purple-200/30 overflow-hidden">
+            <div className="aspect-[9/16] md:aspect-video relative rounded-xl">
+              <VTurbPlayer videoId="689607c4852ea9821ad57f5d" className="w-full h-full" />
             </div>
           </div>
 
           {showContent && (
             <div className="animate-fade-in">
-              <div className="bg-gradient-to-r from-red-600/20 to-orange-600/20 border border-red-500/30 rounded-xl p-8 mb-12 max-w-4xl mx-auto">
+              <div className="bg-gradient-to-r from-red-600/20 to-orange-600/20 border border-red-500/30 rounded-xl p-8 mb-12 max-w-4xl mx-auto mt-10">
                 <h3 className="text-2xl lg:text-3xl font-bold text-white mb-6 leading-tight">
                   Obtén tu Canción del Cerebro 🧠 antes de que cerremos nuestras puertas.<br />
                   Tu pedido está garantizado por:
                 </h3>
-
                 <div className="flex justify-center items-center space-x-4 mb-8">
                   <div className="bg-black/50 rounded-lg p-4 text-center min-w-[80px]">
                     <div className="text-3xl lg:text-4xl font-bold text-red-400">{minutes}</div>
@@ -129,7 +124,6 @@ const SpanishMemoryLanding: React.FC = () => {
                     <div className="text-sm text-gray-300">SEG</div>
                   </div>
                 </div>
-
                 <div className="text-center">
                   <Button 
                     size="lg" 
@@ -140,7 +134,6 @@ const SpanishMemoryLanding: React.FC = () => {
                     ¡OBTENER ACCESO AHORA!
                   </Button>
                 </div>
-
                 <div className="flex items-center justify-center mt-6 text-green-400">
                   <Shield className="w-5 h-5 mr-2" />
                   <span className="text-sm">Garantía de 30 días o tu dinero de vuelta</span>
@@ -164,7 +157,6 @@ const SpanishMemoryLanding: React.FC = () => {
                   <p className="text-gray-300">Miles de personas han mejorado su memoria</p>
                 </div>
               </div>
-
               <div className="text-center">
                 <Button 
                   size="lg" 
