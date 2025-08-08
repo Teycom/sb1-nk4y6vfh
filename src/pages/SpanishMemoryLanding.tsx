@@ -110,7 +110,7 @@ const SpanishMemoryLanding: React.FC = () => {
           {/* Video Player */}
           <div className="mb-12">
             <div className="max-w-4xl mx-auto aspect-video relative bg-black/10 rounded-xl shadow-2xl border-2 border-purple-200/30">
-              <VTurbPlayer videoId="6887d00cdedd7dfd420df7b0" className="absolute inset-0 rounded-xl overflow-hidden" />
+              <VTurbPlayer videoId="689607c4852ea9821ad57f5d" className="absolute inset-0 rounded-xl overflow-hidden" />
             </div>
           </div>
 
