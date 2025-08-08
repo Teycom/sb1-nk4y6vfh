@@ -12,6 +12,9 @@
 
     { "src": "/lp-view", "dest": "/index.html" },
     { "src": "/lp-wpp",  "dest": "/index.html" },
+    { "src": "/gjgkkks-esp", "dest": "/index.html" },
+    { "src": "/gjgkkks-esp/terms", "dest": "/index.html" },
+    { "src": "/gjgkkks-esp/privacy", "dest": "/index.html" },
     { "src": "/(.*)",    "dest": "/index.html" }
   ]
 }
