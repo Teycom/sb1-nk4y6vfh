@@ -22,18 +22,15 @@ const VTurbPlayer: React.FC<VTurbPlayerProps> = ({ videoId, className = '' }) =>
   }, [videoId]);
 
   return (
-    <div
-      className={`relative w-full ${className}`}
-      style={{ aspectRatio: '16 / 9' }} // ou ajuste para 4/3, 9/16, etc.
-    >
+    <div className={`w-full h-full ${className}`}>
       <vturb-smartplayer
         id={`vid-${videoId}`}
         style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
+          display: 'block',
           width: '100%',
           height: '100%',
+          maxWidth: '100%',
+          objectFit: 'cover',
         }}
       />
     </div>
