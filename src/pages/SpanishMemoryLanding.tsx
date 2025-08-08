@@ -8,48 +8,42 @@ const SpanishMemoryLanding: React.FC = () => {
   const [showContent, setShowContent] = useState(false);
   const [timeLeft, setTimeLeft] = useState(15 * 60); // 15 minutes in seconds
 
-  // Delay implementation - show content after video progress
   useEffect(() => {
     const SECONDS_TO_DISPLAY = 442; // 7 minutes 22 seconds
-
     let attempts = 0;
     let elsDisplayed = false;
     const alreadyDisplayedKey = `alreadyElsDisplayedSpanish${SECONDS_TO_DISPLAY}`;
     const alreadyElsDisplayed = localStorage.getItem(alreadyDisplayedKey);
 
-    const showHiddenElements = function () {
+    const showHiddenElements = () => {
       elsDisplayed = true;
       setShowContent(true);
       localStorage.setItem(alreadyDisplayedKey, 'true');
     };
 
-    const startWatchVideoProgress = function () {
-      if (typeof (window as any).smartplayer === 'undefined' || 
-          !((window as any).smartplayer.instances && (window as any).smartplayer.instances.length)) {
+    const startWatchVideoProgress = () => {
+      const smartplayer = (window as any).smartplayer;
+
+      if (!smartplayer || !(smartplayer.instances && smartplayer.instances.length)) {
         if (attempts >= 10) return;
         attempts += 1;
-        return setTimeout(function () {
-          startWatchVideoProgress();
-        }, 1000);
+        return setTimeout(startWatchVideoProgress, 1000);
       }
 
-      (window as any).smartplayer.instances[0].on('timeupdate', () => {
-        if (elsDisplayed || (window as any).smartplayer.instances[0].smartAutoPlay) return;
-        if ((window as any).smartplayer.instances[0].video.currentTime < SECONDS_TO_DISPLAY) return;
+      smartplayer.instances[0].on('timeupdate', () => {
+        if (elsDisplayed || smartplayer.instances[0].smartAutoPlay) return;
+        if (smartplayer.instances[0].video.currentTime < SECONDS_TO_DISPLAY) return;
         showHiddenElements();
       });
     };
 
     if (alreadyElsDisplayed === 'true') {
-      setTimeout(function () {
-        showHiddenElements();
-      }, 100);
+      setTimeout(showHiddenElements, 100);
     } else {
       startWatchVideoProgress();
     }
   }, []);
 
-  // Countdown timer
   useEffect(() => {
     if (!showContent) return;
 
@@ -69,7 +63,10 @@ const SpanishMemoryLanding: React.FC = () => {
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return { minutes: mins.toString().padStart(2, '0'), seconds: secs.toString().padStart(2, '0') };
+    return {
+      minutes: mins.toString().padStart(2, '0'),
+      seconds: secs.toString().padStart(2, '0'),
+    };
   };
 
   const { minutes, seconds } = formatTime(timeLeft);
@@ -85,7 +82,6 @@ const SpanishMemoryLanding: React.FC = () => {
         <meta name="description" content="Descubre el truco cerebral de 8 segundos desarrollado por un neurocientífico entrenado por la NASA para una memoria más fuerte." />
       </Helmet>
 
-      {/* Header */}
       <header className="py-6 px-4">
         <div className="container mx-auto text-center">
           <div className="flex items-center justify-center space-x-3 mb-2">
@@ -95,7 +91,6 @@ const SpanishMemoryLanding: React.FC = () => {
         </div>
       </header>
 
-      {/* Hero Section */}
       <section className="relative overflow-hidden py-12 lg:py-20">
         <div className="absolute inset-0 bg-gradient-to-r from-purple-900/20 to-blue-900/20"></div>
         <div className="container mx-auto px-6 text-center relative z-10">
@@ -107,27 +102,22 @@ const SpanishMemoryLanding: React.FC = () => {
             </span>
           </h2>
 
-          {/* Video Player */}
           <div className="mb-12">
-            <div className="max-w-4xl mx-auto relative bg-black/10 rounded-xl shadow-2xl border-2 border-purple-200/30 md:aspect-video">
-              {/* Mobile: Vertical aspect ratio, Desktop: Horizontal aspect ratio */}
-              <div className="aspect-[9/16] md:aspect-video">
-              <VTurbPlayer videoId="689607c4852ea9821ad57f5d" className="absolute inset-0 rounded-xl overflow-hidden" />
+            <div className="max-w-4xl mx-auto bg-black/10 rounded-xl shadow-2xl border-2 border-purple-200/30">
+              <div className="aspect-[9/16] md:aspect-video relative overflow-hidden rounded-xl">
+                <VTurbPlayer videoId="689607c4852ea9821ad57f5d" className="w-full h-full" />
               </div>
             </div>
           </div>
 
-          {/* Content that appears after delay */}
           {showContent && (
             <div className="animate-fade-in">
-              {/* Urgency Section */}
               <div className="bg-gradient-to-r from-red-600/20 to-orange-600/20 border border-red-500/30 rounded-xl p-8 mb-12 max-w-4xl mx-auto">
                 <h3 className="text-2xl lg:text-3xl font-bold text-white mb-6 leading-tight">
                   Obtén tu Canción del Cerebro 🧠 antes de que cerremos nuestras puertas.<br />
                   Tu pedido está garantizado por:
                 </h3>
 
-                {/* Countdown Timer */}
                 <div className="flex justify-center items-center space-x-4 mb-8">
                   <div className="bg-black/50 rounded-lg p-4 text-center min-w-[80px]">
                     <div className="text-3xl lg:text-4xl font-bold text-red-400">{minutes}</div>
@@ -140,7 +130,6 @@ const SpanishMemoryLanding: React.FC = () => {
                   </div>
                 </div>
 
-                {/* CTA Button */}
                 <div className="text-center">
                   <Button 
                     size="lg" 
@@ -152,14 +141,12 @@ const SpanishMemoryLanding: React.FC = () => {
                   </Button>
                 </div>
 
-                {/* Guarantee */}
                 <div className="flex items-center justify-center mt-6 text-green-400">
                   <Shield className="w-5 h-5 mr-2" />
                   <span className="text-sm">Garantía de 30 días o tu dinero de vuelta</span>
                 </div>
               </div>
 
-              {/* Benefits Section */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto mb-12">
                 <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-lg p-6 text-center">
                   <Brain className="w-12 h-12 text-purple-400 mx-auto mb-4" />
@@ -178,7 +165,6 @@ const SpanishMemoryLanding: React.FC = () => {
                 </div>
               </div>
 
-              {/* Final CTA */}
               <div className="text-center">
                 <Button 
                   size="lg" 
@@ -196,7 +182,6 @@ const SpanishMemoryLanding: React.FC = () => {
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="border-t border-gray-800 bg-gray-900 py-8 mt-20">
         <div className="container mx-auto px-6 text-center">
           <div className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8 mb-6">
