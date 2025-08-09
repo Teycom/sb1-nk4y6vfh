@@ -198,6 +198,16 @@ const SpanishMemoryLanding: React.FC = () => {
         .animate-fade-in {
           animation: fade-in 0.8s ease-out;
         }
+
+        /* Ajuste para o celular */
+        @media (max-width: 767px) {
+          .aspect-[9/16] {
+            aspect-ratio: 16 / 9;
+          }
+          .border-2 {
+            border: none;
+          }
+        }
       `}</style>
     </div>
   );
